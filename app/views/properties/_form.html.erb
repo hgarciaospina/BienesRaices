@@ -1,0 +1,79 @@
+<%= form_for(@property) do |f| %>
+  <% if @property.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+      <% @property.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Nombre' %><br>
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Descripción' %><br>
+    <%= f.text_area :description, class: 'form-control ckeditor', required: 'required' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Habitaciones' %><br>
+    <%= f.number_field :rooms, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Baños' %><br>
+    <%= f.number_field :bathrooms, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'MTS2 Construccion' %><br>
+    <%= f.text_field :construction, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'MTS2 terreno' %><br>
+    <%= f.text_field :ground, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Estacionamiento' %><br>
+    <%= f.number_field :parking, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Precio'%><br>
+    <%= f.text_field :price, class: 'form-control' %>
+  </div>
+    <% if current_agent.admin? %>
+        <div class="field">
+        <%= f.label 'Agente' %><br>
+        <%= f.select :agent_id, set_agents.collect{|a| [a.email, a.id]}, {}, class: 'form-control' %>
+      </div>
+    <% else %>
+        <%= f.hidden_field :agent_id, value: current_agent.id %>
+    <% end %>
+  <div class="field">
+    <%= f.label 'Tipo de Propiedad' %><br>
+    <%= f.select :property_type_id, set_types.collect{|t| [t.name, t.id]}, {}, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Categoría' %><br>
+    <%= f.select :property_category_id, set_categories.collect{|c| [c.name, c.id]}, {}, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Ciudad' %><br>
+    <%= f.select :city_id, set_cities.collect{|c| [c.name, c.id]}, {}, class: 'form-control' %>
+  </div>
+    <div class="field">
+      <%= f.label 'Foto Principal' %><br>
+      <% if action_name == 'edit' %>
+        <%= image_tag @property.photos.url, class: 'img-thumbnail', width: 200 if @property.photos? %>
+          <br/>
+          <br/>
+          Reemplazar
+      <% end %>
+      <%= f.file_field :photos, class: 'form-control' %>
+    </div>
+  <div class="actions">
+    <%= f.submit class: 'btn btn-default' %>
+  </div>
+<% end %>

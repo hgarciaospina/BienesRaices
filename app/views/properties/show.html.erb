@@ -1,0 +1,93 @@
+<h2><%= @property.name %></h2>
+<hr/>
+<div class="row">
+<div class="col-lg-6">
+  <%= image_tag @property.photos.url, class: 'img-thumbnail', height: 150 %>
+  <small>Imagen principal</small>
+  <br/><br/>
+</div>
+<div class="col-lg-6">
+  <h4>Fotos</h4>
+  <div class="row">
+  <% @property.property_photos.each do |p| %>
+    <div class="col-lg-4">
+        <%= image_tag p.source.url, class: 'img-thumbnail', height: 60 %>
+        <small><%= link_to 'Eliminar', property_photo_path(p), method: :delete, data: {confirm: 'Desea borrar?'} %></small>
+    </div>
+  <% end %>
+  </div>
+<div class="clearfix"></div>
+  <br/>
+<div class="well">
+  <%= form_tag({action: :upload}, multipart: true) do %>
+      <%= file_field_tag :photos, accept: 'image/*' %>
+      <%= text_field_tag :caption, nil, class: 'form-control', placeholder: 'Descripción / Capsula' %>
+      <%= hidden_field_tag :property, @property.id %>
+      <%= submit_tag 'Subir', class: 'btn btn-default' %>
+  <% end %>
+</div>
+</div>
+<div class="col-lg-12">
+  <p>
+    <strong>Description:</strong>
+    <%= @property.description %>
+  </p>
+
+  <p>
+    <strong>Rooms:</strong>
+    <%= @property.rooms %>
+  </p>
+
+  <p>
+    <strong>Bathrooms:</strong>
+    <%= @property.bathrooms %>
+  </p>
+
+  <p>
+    <strong>Construction:</strong>
+    <%= @property.construction %>
+  </p>
+
+  <p>
+    <strong>Ground:</strong>
+    <%= @property.ground %>
+  </p>
+
+  <p>
+    <strong>Parking:</strong>
+    <%= @property.parking %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= @property.price %>
+  </p>
+
+  <p>
+    <strong>Agent:</strong>
+    <%= @property.agent.email %>
+  </p>
+
+  <p>
+    <strong>Property type:</strong>
+    <%= @property.property_type.name %>
+  </p>
+
+  <p>
+    <strong>Property category:</strong>
+    <%= @property.property_category.name %>
+  </p>
+
+  <p>
+    <strong>City:</strong>
+    <%= @property.city.name %>
+  </p>
+
+  <hr/>
+
+  <%= link_to 'Edit', edit_property_path(@property) %> |
+  <%= link_to 'Back', properties_path %>
+
+</div>
+
+</div>

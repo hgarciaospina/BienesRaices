@@ -1,0 +1,37 @@
+<h1>Propiedades</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Foto</th>
+      <th>Nombre</th>
+      <th>Precio</th>
+      <th>Agente</th>
+      <th>Tipo</th>
+      <th>Categoria</th>
+      <th>Ciudad</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @properties.each do |property| %>
+      <tr>
+        <td><%= image_tag property.photos.url, class: 'img-thumbnail', width: 100 %></td>
+        <td><strong><%= property.name %></strong></td>
+        <td><%= property.price %></td>
+        <td><%= property.agent.email %></td>
+        <td><%= property.property_type.name %></td>
+        <td><%= property.property_category.name %></td>
+        <td><%= property.city.name %></td>
+        <td><%= link_to 'Ver', property %></td>
+        <td><%= link_to 'Editar', edit_property_path(property) %></td>
+        <td><%= link_to 'Eliminar', property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Crear Propiedad', new_property_path, class: 'btn btn-default' %>

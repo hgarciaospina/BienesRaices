@@ -1,0 +1,69 @@
+<h2>Editar Perfil</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Contraseña' %> <i>(dejar en blanco si no deseas cambiarla)</i><br />
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Confirmación Contraseña' %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Actual Contraseña', class: 'text-danger' %> <i>(Necesitas introducir tu contraseña para validar que eres tu)</i><br />
+    <%= f.password_field :current_password, autocomplete: "off", class: 'form-control' %>
+  </div>
+    <div class="field">
+      <%= f.label 'Nombre' %><br />
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= f.label 'Telefono' %><br />
+      <%= f.text_field :phone, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= f.label 'Sobre mi' %><br />
+      <%= f.text_area :about, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= f.label 'Direccion' %><br />
+      <%= f.text_field :address, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= f.label 'Compañia' %><br />
+      <%= f.text_field :company, class: 'form-control' %>
+    </div>
+
+    <div class="field">
+      <%= f.label 'Avatar' %><br />
+      <%= f.file_field :photo %>
+    </div>
+
+  <div class="actions">
+    <%= f.submit "Actualizar", class: 'btn btn-primary' %>
+  </div>
+<% end %>
+<hr/>
+
+<h3>Cerrar cuenta</h3>
+
+<p>No te interesa más? <%= button_to "Cancelar mi cuenta", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
+
+<%= link_to "Back", :back %>

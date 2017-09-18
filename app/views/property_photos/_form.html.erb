@@ -1,0 +1,29 @@
+<%= form_for(@property_photo) do |f| %>
+  <% if @property_photo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@property_photo.errors.count, "error") %> prohibited this property_photo from being saved:</h2>
+
+      <ul>
+      <% @property_photo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label 'Capsula' %><br>
+    <%= f.text_area :caption, class: 'form-control' %>
+  </div>
+  <div class="field">
+    <%= f.label 'Propiedad'%><br>
+    <%= f.select :property_id, set_properties.collect { |p| [p.name, p.id] }, {}, class: 'form-control' %>
+  </div>
+    <div class="field">
+      <%= f.label 'Foto' %><br>
+      <%= f.file_field :source, accept: 'image/*' %>
+    </div>
+  <div class="actions">
+    <%= f.submit 'enviar', class: 'btn btn-primary' %>
+  </div>
+<% end %>
